@@ -1,0 +1,29 @@
+name: Run lint and build
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'js-fun-planner/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'js-fun-planner/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm ci
+      working-directory: js-fun-planner
